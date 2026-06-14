@@ -12,7 +12,7 @@ Generated with [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max
 | **Colour** | Cyan → indigo gradients only on key UI (avoid generic magenta “AI rainbow” on chrome); data accents may still use pink where semantically tied to content. |
 | **Typography** | **Space Grotesk** (`font-heading`) for the hero name; Inter remains body. |
 | **Chrome** | Floating nav (`top-4` inset, rounded), skip link, visible `focus-visible` rings, `cursor-pointer` on controls, mobile **Get in Touch**. |
-| **Chat** | Dialog semantics (`role="dialog"`, labelled controls, input label), no hover-scale FAB. |
+| **Chat** | Dialog semantics (`role="dialog"`, labelled controls, input label), no hover-scale FAB. **NIM default:** `nvidia/llama-3.3-nemotron-super-49b-v1.5` + `/no_think` — see `design-system/nim-model.md`. |
 
 ## Pre-delivery checklist (from skill)
 

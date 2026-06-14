@@ -4,7 +4,7 @@ Next.js portfolio (neural-themed UI) with resume data, OG image, and an optional
 
 **AI chat providers** (first match wins):
 
-1. **NVIDIA NIM** — `NIM_API_KEY` or `NVIDIA_API_KEY` (`nvapi-...` from [build.nvidia.com](https://build.nvidia.com)). Optional: `NIM_MODEL` (default `meta/llama-3.3-70b-instruct`), `NIM_BASE_URL` (default `https://integrate.api.nvidia.com/v1`).
+1. **NVIDIA NIM** — `NIM_API_KEY` or `NVIDIA_API_KEY`. Optional: `NIM_MODEL` (default **`nvidia/llama-3.3-nemotron-super-49b-v1.5`** — rationale in `design-system/nim-model.md`), `NIM_BASE_URL` (default `https://integrate.api.nvidia.com/v1`).
 2. **OpenRouter** — `OPENROUTER_API_KEY`
 3. **Groq** — `GROQ_API_KEY`
 

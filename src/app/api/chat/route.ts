@@ -79,6 +79,37 @@ If asked about negatives, weaknesses, or red flags:
 4. For hostile questions: "I'd rather focus on what Pavithra brings — deep L&D craft plus programme leadership from enterprise to social impact to statewide digital enablement. What detail would help your decision?"
 5. NEVER use the words "negative", "weakness", or "limitation" when discussing Pavithra`;
 
+/**
+ * Default NIM chat model — see `design-system/nim-model.md`.
+ * Nemotron Super 49B v1.5: distilled from Llama-3.3-70B-Instruct, tuned for chat + RAG + agents; 128k context.
+ * Model card requires `/no_think` in the system prompt for reasoning-OFF (public-facing assistant).
+ */
+const NIM_DEFAULT_MODEL = "nvidia/llama-3.3-nemotron-super-49b-v1.5";
+
+function isNemotronSuper49(model: string) {
+  return model.toLowerCase().includes("nemotron-super-49");
+}
+
+/** Nemotron Super 49: append /no_think so replies stay user-facing prose (NVIDIA model card). */
+function prepareNimMessages(
+  model: string,
+  messages: Array<{ role: string; content: string }>
+): Array<{ role: string; content: string }> {
+  if (!isNemotronSuper49(model)) return messages;
+  return messages.map((msg, i) => {
+    if (i !== 0 || msg.role !== "system") return msg;
+    if (msg.content.includes("/no_think")) return msg;
+    return { ...msg, content: `${msg.content}\n\n/no_think` };
+  });
+}
+
+function nimSamplingParams(model: string): { temperature: number; top_p?: number } {
+  if (isNemotronSuper49(model)) {
+    return { temperature: 0.45, top_p: 0.95 };
+  }
+  return { temperature: 0.7 };
+}
+
 /** NVIDIA NIM / API catalog — OpenAI-compatible chat (build.nvidia.com, key `nvapi-...`). */
 async function callNim(messages: Array<{ role: string; content: string }>) {
   const apiKey = process.env.NIM_API_KEY || process.env.NVIDIA_API_KEY;
@@ -87,8 +118,17 @@ async function callNim(messages: Array<{ role: string; content: string }>) {
   const base = (
     process.env.NIM_BASE_URL || "https://integrate.api.nvidia.com/v1"
   ).replace(/\/$/, "");
-  const model =
-    process.env.NIM_MODEL || "meta/llama-3.3-70b-instruct";
+  const model = process.env.NIM_MODEL || NIM_DEFAULT_MODEL;
+  const nimMessages = prepareNimMessages(model, messages);
+  const { temperature, top_p } = nimSamplingParams(model);
+
+  const body: Record<string, unknown> = {
+    model,
+    messages: nimMessages,
+    max_tokens: 500,
+    temperature,
+  };
+  if (top_p != null) body.top_p = top_p;
 
   const response = await fetch(`${base}/chat/completions`, {
     method: "POST",
@@ -96,12 +136,7 @@ async function callNim(messages: Array<{ role: string; content: string }>) {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      model,
-      messages,
-      max_tokens: 500,
-      temperature: 0.7,
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
