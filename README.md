@@ -8,6 +8,18 @@ Next.js portfolio (neural-themed UI) with resume data, OG image, and an optional
 2. **OpenRouter** — `OPENROUTER_API_KEY`
 3. **Groq** — `GROQ_API_KEY`
 
+### Vercel production (NIM chat)
+
+In the [Vercel project](https://vercel.com/) → **Settings** → **Environment Variables**, add **`NIM_API_KEY`** (value: your `nvapi-…` key from [build.nvidia.com](https://build.nvidia.com)) for **Production** (and Preview if you want chat on preview URLs). Mark it **Sensitive**. Redeploy if the variable was added after the last deploy.
+
+From this repo (logged in with `vercel whoami`), you can instead run:
+
+```bash
+vercel env add NIM_API_KEY production --sensitive --yes < path/to/one-line-secret.txt
+```
+
+(`path/to/one-line-secret.txt` should contain only the key, no `KEY=` prefix.)
+
 ## Local development
 
 ```bash
