@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     "Retail Partnerships",
   ],
   authors: [{ name: "Krishna Inamdar", url: "https://www.linkedin.com/in/krishnainamdar25/" }],
-  metadataBase: new URL("https://krishna-inamdar.vercel.app"),
+  metadataBase: new URL("https://krishna-inamdar-portfolio.vercel.app"),
   alternates: {
-    canonical: "https://krishna-inamdar.vercel.app",
+    canonical: "https://krishna-inamdar-portfolio.vercel.app",
   },
   openGraph: {
     title: "Krishna Inamdar | Walmart Account Manager & Analytics Leader",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Wholesale and retail leader spanning data analytics, e-commerce marketplaces, regional distribution, and Walmart national account management.",
     type: "website",
     locale: "en_US",
-    url: "https://krishna-inamdar.vercel.app",
+    url: "https://krishna-inamdar-portfolio.vercel.app",
   },
   twitter: {
     card: "summary_large_image",
