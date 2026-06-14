@@ -10,7 +10,7 @@ export default function ProjectShowcase() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="py-24 relative" ref={ref}>
+    <section id="projects" className="relative scroll-mt-28 py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -46,18 +46,18 @@ export default function ProjectShowcase() {
                   >
                     {project.domain}
                   </span>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-neural-fg">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-gray-500">{project.client}</p>
+                  <p className="text-sm text-neural-fg-dim">{project.client}</p>
                 </div>
                 <ExternalLink
                   size={18}
-                  className="text-gray-600 group-hover:text-neural-cyan transition-colors"
+                  className="text-neural-fg-dim group-hover:text-neural-cyan transition-colors"
                 />
               </div>
 
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+              <p className="text-neural-fg-muted text-sm mb-4 leading-relaxed">
                 {project.description}
               </p>
 
@@ -70,7 +70,7 @@ export default function ProjectShowcase() {
                 {project.tech.map((t) => (
                   <span
                     key={t}
-                    className="px-2 py-0.5 text-xs rounded border border-neural-border/30 text-gray-400 bg-neural-bg/50"
+                    className="px-2 py-0.5 text-xs rounded border border-neural-border/30 text-neural-fg-muted bg-neural-bg/50"
                   >
                     {t}
                   </span>

@@ -1,32 +1,50 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { MapPin, Mail, Linkedin, ArrowDown } from "lucide-react";
 import NeuralNetworkCanvas from "./NeuralNetworkCanvas";
 import { personalInfo, stats } from "@/data/resume-data";
 
 const roles = [
-  "Walmart Account Manager",
-  "Wholesale & Retail Leader",
-  "Data-Driven Account Strategist",
-  "E-commerce Marketplace Operator",
-  "SQL & Excel Power Analyst",
+  "Master Trainer · CeG",
+  "L&D & Transformation Leader",
+  "Business Development · HR",
+  "Program & Incubation Manager",
+  "Public-Sector Digital Enablement",
 ];
 
 export default function HeroSection() {
+  const reducedMotionPref = useReducedMotion();
+  const prefersReduced = reducedMotionPref === true;
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  /* Reduced motion: rotate full lines on an interval (no typewriter, no infinite micro-animations). */
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const timeout = setTimeout(
+    if (!prefersReduced) return;
+    setDisplayText(roles[roleIndex] ?? "");
+  }, [prefersReduced, roleIndex]);
+
+  useEffect(() => {
+    if (!prefersReduced) return;
+    const id = window.setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 4500);
+    return () => window.clearInterval(id);
+  }, [prefersReduced]);
+
+  useEffect(() => {
+    if (prefersReduced) return;
+
+    const currentRole = roles[roleIndex] ?? "";
+    const timeout = window.setTimeout(
       () => {
         if (!isDeleting) {
           setDisplayText(currentRole.slice(0, displayText.length + 1));
           if (displayText.length === currentRole.length) {
-            setTimeout(() => setIsDeleting(true), 2000);
+            window.setTimeout(() => setIsDeleting(true), 2000);
           }
         } else {
           setDisplayText(currentRole.slice(0, displayText.length - 1));
@@ -39,49 +57,51 @@ export default function HeroSection() {
       isDeleting ? 30 : 80
     );
 
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
+    return () => window.clearTimeout(timeout);
+  }, [displayText, isDeleting, roleIndex, prefersReduced]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-24 sm:pt-28">
       <NeuralNetworkCanvas />
 
       <div className="absolute inset-0 bg-gradient-to-b from-neural-bg via-transparent to-neural-bg" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReduced ? false : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: prefersReduced ? 0.2 : 0.8, ease: "easeOut" }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-gray-400 mb-8">
-            <span className="w-2 h-2 rounded-full bg-neural-green animate-pulse" />
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full glass-card px-4 py-2 text-sm text-neural-fg-muted">
+            <span className="h-2 w-2 rounded-full bg-neural-green motion-safe:animate-pulse" />
             Available for opportunities
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-tight">
-            <span className="text-white">{personalInfo.name}</span>
+          <h1 className="font-heading text-4xl font-bold tracking-tight text-neural-fg sm:text-5xl lg:text-7xl mb-4">
+            {personalInfo.name}
           </h1>
 
-          <div className="h-12 sm:h-14 flex items-center justify-center mb-6">
-            <span className="text-xl sm:text-2xl lg:text-3xl text-neural-cyan font-mono">
+          <div className="mb-6 flex h-12 items-center justify-center sm:h-14">
+            <span className="font-mono text-xl text-neural-cyan sm:text-2xl lg:text-3xl">
               {displayText}
-              <span className="animate-pulse">|</span>
+              {!prefersReduced ? (
+                <span className="motion-safe:animate-pulse">|</span>
+              ) : null}
             </span>
           </div>
 
-          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-neural-fg-muted sm:text-lg">
             {personalInfo.tagline}
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12 text-sm text-gray-400">
+          <div className="mb-12 flex flex-wrap items-center justify-center gap-4 text-sm text-neural-fg-muted">
             <span className="flex items-center gap-1.5">
-              <MapPin size={14} className="text-neural-cyan" />
+              <MapPin size={14} className="text-neural-cyan" aria-hidden />
               {personalInfo.location}
             </span>
             {personalInfo.email ? (
               <span className="flex items-center gap-1.5">
-                <Mail size={14} className="text-neural-cyan" />
+                <Mail size={14} className="text-neural-cyan" aria-hidden />
                 {personalInfo.email}
               </span>
             ) : null}
@@ -90,39 +110,42 @@ export default function HeroSection() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-neural-cyan transition-colors"
+                className="flex cursor-pointer items-center gap-1.5 rounded-md transition-colors duration-200 hover:text-neural-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neural-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-neural-bg"
               >
-                <Linkedin size={14} />
+                <Linkedin size={14} aria-hidden />
                 LinkedIn
               </a>
             )}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
+          <div className="mx-auto mb-12 grid max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + i * 0.1 }}
-                className="glass-card p-4"
+                transition={{
+                  delay: prefersReduced ? 0 : 0.5 + i * 0.1,
+                  ease: "easeOut",
+                }}
+                className="glass-card p-4 transition-shadow duration-200 motion-safe:hover:shadow-lg"
               >
-                <div className="text-2xl sm:text-3xl font-bold text-neural-cyan">
+                <div className="text-2xl font-bold text-neural-cyan sm:text-3xl">
                   {stat.value}
                 </div>
-                <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+                <div className="mt-1 text-xs text-neural-fg-dim">{stat.label}</div>
               </motion.div>
             ))}
           </div>
 
           <motion.a
             href="#about"
-            initial={{ opacity: 0 }}
+            initial={prefersReduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="inline-flex items-center gap-2 text-gray-500 hover:text-neural-cyan transition-colors"
+            transition={{ delay: prefersReduced ? 0 : 1.2 }}
+            className="inline-flex cursor-pointer items-center gap-2 rounded-md text-neural-fg-dim transition-colors duration-200 hover:text-neural-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neural-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-neural-bg"
           >
-            <ArrowDown size={16} className="animate-bounce" />
+            <ArrowDown size={16} aria-hidden className="motion-reduce:opacity-80" />
             Scroll to explore
           </motion.a>
         </motion.div>

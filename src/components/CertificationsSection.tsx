@@ -37,13 +37,13 @@ export default function CertificationsSection() {
               className="glass-card p-5 hover:border-neural-green/30 transition-colors"
             >
               <Award size={20} className="text-neural-green mb-3" />
-              <h4 className="text-sm font-semibold text-white mb-1">
+              <h4 className="text-sm font-semibold text-neural-fg mb-1">
                 {cert.title}
               </h4>
-              <p className="text-xs text-gray-500 mb-2">
+              <p className="text-xs text-neural-fg-dim mb-2">
                 {cert.issuer} &middot; {cert.date}
               </p>
-              <p className="text-xs text-gray-400 leading-relaxed">
+              <p className="text-xs text-neural-fg-muted leading-relaxed">
                 {cert.description}
               </p>
             </motion.div>

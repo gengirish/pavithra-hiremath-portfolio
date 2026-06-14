@@ -119,9 +119,11 @@ If asked about negatives, weaknesses, or red flags:
 
 ## Model Configuration
 
-Default: OpenRouter `meta-llama/llama-3.3-70b-instruct` with Groq fallback.
+Chat route priority: **NVIDIA NIM** (`NIM_API_KEY` / `NVIDIA_API_KEY`, optional `NIM_MODEL`, `NIM_BASE_URL`) → OpenRouter → Groq.
 
-For clients who prefer a different model, update the `model` parameter in `route.ts`:
+Default NIM model: `meta/llama-3.3-70b-instruct` (override with `NIM_MODEL` to match your [API catalog](https://build.nvidia.com/models) model id).
+
+For clients who prefer a different default model, update env defaults or `route.ts`:
 
 | Use Case | Model | Cost |
 |----------|-------|------|

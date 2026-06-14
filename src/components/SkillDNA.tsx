@@ -31,7 +31,7 @@ export default function SkillDNA() {
             transition={{ delay: 0.2 }}
             className="glass-card p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-6">
+            <h3 className="text-lg font-semibold text-neural-fg mb-6">
               Career Network
             </h3>
             <div className="relative min-h-[300px]">
@@ -123,7 +123,7 @@ export default function SkillDNA() {
             transition={{ delay: 0.3 }}
             className="glass-card p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-6">
+            <h3 className="text-lg font-semibold text-neural-fg mb-6">
               Skill Progression
             </h3>
             <div className="space-y-6">
@@ -138,7 +138,7 @@ export default function SkillDNA() {
                     <span className="text-sm font-medium" style={{ color: skill.color }}>
                       {skill.skill}
                     </span>
-                    <span className="text-xs text-gray-500 font-mono">
+                    <span className="text-xs text-neural-fg-dim font-mono">
                       {skill.milestones[skill.milestones.length - 1].level}%
                     </span>
                   </div>
@@ -159,7 +159,7 @@ export default function SkillDNA() {
                   </div>
                   <div className="flex justify-between mt-1">
                     {skill.milestones.map((ms) => (
-                      <span key={ms.year} className="text-[10px] text-gray-600 font-mono">
+                      <span key={ms.year} className="text-[10px] text-neural-fg-dim font-mono">
                         {ms.year}
                       </span>
                     ))}

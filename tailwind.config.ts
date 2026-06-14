@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,10 +11,14 @@ const config: Config = {
     extend: {
       colors: {
         neural: {
-          bg: "#020617",
-          surface: "#0f172a",
-          card: "#1e293b",
-          border: "#334155",
+          bg: "rgb(var(--neural-bg) / <alpha-value>)",
+          surface: "rgb(var(--neural-surface) / <alpha-value>)",
+          card: "rgb(var(--neural-card) / <alpha-value>)",
+          border: "rgb(var(--neural-border) / <alpha-value>)",
+          fg: "rgb(var(--neural-fg) / <alpha-value>)",
+          "fg-muted": "rgb(var(--neural-fg-muted) / <alpha-value>)",
+          "fg-soft": "rgb(var(--neural-fg-soft) / <alpha-value>)",
+          "fg-dim": "rgb(var(--neural-fg-dim) / <alpha-value>)",
           cyan: "#06b6d4",
           purple: "#6366f1",
           pink: "#ec4899",
@@ -22,8 +27,14 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        heading: [
+          "var(--font-space-grotesk)",
+          "Space Grotesk",
+          "system-ui",
+          "sans-serif",
+        ],
+        mono: ["var(--font-jetbrains)", "JetBrains Mono", "monospace"],
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-out",

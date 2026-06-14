@@ -1,31 +1,46 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const bootLines = [
   "NEURAL_PORTFOLIO v2.4.0",
-  "Initializing wholesale account graph...",
-  "Loading 8+ years of analytics + retail signals...",
-  "Walmart account node [PRIMARY] online",
-  "Marketplace + distribution subgraphs [LINKED]",
+  "Initializing L&D + transformation graph...",
+  "Loading 15+ years of learning & programme signals...",
+  "CeG training node [PRIMARY] online",
+  "Enterprise + social-impact subgraphs [LINKED]",
   "System ready. Welcome.",
 ];
 
 export default function LoadingScreen() {
+  const reduceMotion = useReducedMotion();
   const [visible, setVisible] = useState(true);
   const [lines, setLines] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    bootLines.forEach((line, i) => {
-      setTimeout(() => {
-        setLines((prev) => [...prev, line]);
-        setProgress(((i + 1) / bootLines.length) * 100);
-      }, i * 300);
-    });
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    setTimeout(() => setVisible(false), bootLines.length * 300 + 600);
+    if (reduced) {
+      setLines([...bootLines]);
+      setProgress(100);
+      const t = window.setTimeout(() => setVisible(false), 350);
+      return () => window.clearTimeout(t);
+    }
+
+    const timers: number[] = [];
+    bootLines.forEach((line, i) => {
+      timers.push(
+        window.setTimeout(() => {
+          setLines((prev) => [...prev, line]);
+          setProgress(((i + 1) / bootLines.length) * 100);
+        }, i * 300)
+      );
+    });
+    timers.push(
+      window.setTimeout(() => setVisible(false), bootLines.length * 300 + 600)
+    );
+    return () => timers.forEach((id) => window.clearTimeout(id));
   }, []);
 
   return (
@@ -33,30 +48,31 @@ export default function LoadingScreen() {
       {visible && (
         <motion.div
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[100] bg-neural-bg flex items-center justify-center"
+          transition={{ duration: reduceMotion ? 0.2 : 0.5 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-neural-bg"
         >
-          <div className="max-w-lg w-full px-6">
-            <div className="font-mono text-sm text-neural-cyan mb-4">BOOT_SEQUENCE</div>
-            <div className="space-y-2 font-mono text-xs text-gray-400 min-h-[180px]">
+          <div className="w-full max-w-lg px-6">
+            <div className="mb-4 font-mono text-sm text-neural-cyan">BOOT_SEQUENCE</div>
+            <div className="min-h-[180px] space-y-2 font-mono text-xs text-neural-fg-muted">
               {lines.map((line, i) => (
                 <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
+                  key={`${line}-${i}`}
+                  initial={reduceMotion ? false : { opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
+                  transition={{ ease: "easeOut" }}
                   className="text-neural-green/90"
                 >
-                  <span className="text-neural-cyan/60 mr-2">{">"}</span>
+                  <span className="mr-2 text-neural-cyan/60">{">"}</span>
                   {line}
                 </motion.div>
               ))}
             </div>
-            <div className="mt-6 h-1 bg-neural-border/30 rounded-full overflow-hidden">
+            <div className="mt-6 h-1 overflow-hidden rounded-full bg-neural-border/30">
               <motion.div
                 className="h-full bg-gradient-to-r from-neural-cyan to-neural-green"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: reduceMotion ? 0.1 : 0.3, ease: "easeOut" }}
               />
             </div>
           </div>

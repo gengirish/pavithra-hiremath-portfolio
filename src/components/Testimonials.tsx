@@ -12,7 +12,7 @@ export default function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section id="testimonials" className="py-24 relative" ref={ref}>
+    <section id="testimonials" className="relative scroll-mt-28 py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -40,14 +40,14 @@ export default function Testimonials() {
                 size={32}
                 className="text-neural-purple/20 absolute top-4 right-4"
               />
-              <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
+              <p className="text-neural-fg-soft text-sm leading-relaxed mb-6 italic">
                 {testimonial.text}
               </p>
               <div className="border-t border-neural-border/20 pt-4">
-                <p className="text-sm font-semibold text-white">
+                <p className="text-sm font-semibold text-neural-fg">
                   {testimonial.author}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-neural-fg-dim">
                   {testimonial.relationship}
                 </p>
               </div>

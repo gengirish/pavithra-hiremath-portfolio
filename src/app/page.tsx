@@ -18,7 +18,7 @@ export default function Home() {
       <LoadingScreen />
       <ScrollProgress />
       <Navbar />
-      <main className="neural-grid">
+      <main id="main-content" tabIndex={-1} className="neural-grid outline-none">
         <HeroSection />
         <AboutSection />
         <SkillsSection />

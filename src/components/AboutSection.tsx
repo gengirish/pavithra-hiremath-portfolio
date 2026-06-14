@@ -10,7 +10,7 @@ export default function AboutSection() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-24 relative" ref={ref}>
+    <section id="about" className="relative scroll-mt-28 py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -32,10 +32,10 @@ export default function AboutSection() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <p className="text-gray-300 text-lg leading-relaxed mb-6">
+            <p className="text-neural-fg-soft text-lg leading-relaxed mb-6">
               {personalInfo.summary}
             </p>
-            <p className="text-gray-400 leading-relaxed mb-8">
+            <p className="text-neural-fg-muted leading-relaxed mb-8">
               With a strong foundation in biotechnology and an MBA in Marketing from Osmania University,
               I bring a unique blend of scientific understanding and business acumen to the
               pharmaceutical and healthcare sales landscape. My career spans across
@@ -46,22 +46,22 @@ export default function AboutSection() {
             <div className="grid sm:grid-cols-3 gap-4">
               <div className="glass-card p-4">
                 <Briefcase size={20} className="text-neural-cyan mb-2" />
-                <h4 className="text-sm font-semibold text-gray-200">Current Role</h4>
-                <p className="text-xs text-gray-400 mt-1">
+                <h4 className="text-sm font-semibold text-neural-fg">Current Role</h4>
+                <p className="text-xs text-neural-fg-muted mt-1">
                   Regional Sales & Marketing Head at Arsa Lifecare
                 </p>
               </div>
               <div className="glass-card p-4">
                 <GraduationCap size={20} className="text-neural-purple mb-2" />
-                <h4 className="text-sm font-semibold text-gray-200">Education</h4>
-                <p className="text-xs text-gray-400 mt-1">
+                <h4 className="text-sm font-semibold text-neural-fg">Education</h4>
+                <p className="text-xs text-neural-fg-muted mt-1">
                   MBA Marketing — Osmania University
                 </p>
               </div>
               <div className="glass-card p-4">
                 <Globe size={20} className="text-neural-green mb-2" />
-                <h4 className="text-sm font-semibold text-gray-200">Languages</h4>
-                <p className="text-xs text-gray-400 mt-1">
+                <h4 className="text-sm font-semibold text-neural-fg">Languages</h4>
+                <p className="text-xs text-neural-fg-muted mt-1">
                   English, Hindi, Telugu
                 </p>
               </div>
@@ -74,7 +74,7 @@ export default function AboutSection() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-semibold text-neural-fg-soft uppercase tracking-wider mb-4">
               Industry Domains
             </h3>
             <div className="space-y-3">
@@ -87,7 +87,7 @@ export default function AboutSection() {
                   className="glass-card p-4 flex items-center gap-3 hover:border-neural-cyan/30 transition-colors"
                 >
                   <span className="text-2xl">{domain.icon}</span>
-                  <span className="text-gray-300">{domain.name}</span>
+                  <span className="text-neural-fg-soft">{domain.name}</span>
                 </motion.div>
               ))}
             </div>

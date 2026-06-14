@@ -34,7 +34,7 @@ export async function GET() {
               textAlign: "center",
             }}
           >
-            Krishna Inamdar
+            Pavithra H M
           </div>
           <div
             style={{
@@ -44,7 +44,7 @@ export async function GET() {
               textAlign: "center",
             }}
           >
-            Walmart Account Manager · Wholesale & Analytics
+            L&D · Business Development · Public-Sector Training
           </div>
           <div
             style={{
@@ -54,16 +54,16 @@ export async function GET() {
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <div style={{ fontSize: "36px", fontWeight: 700, color: "#06b6d4" }}>8+</div>
+              <div style={{ fontSize: "36px", fontWeight: 700, color: "#06b6d4" }}>15+</div>
               <div style={{ fontSize: "14px", color: "#94a3b8" }}>Years Experience</div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <div style={{ fontSize: "36px", fontWeight: 700, color: "#6366f1" }}>Walmart</div>
-              <div style={{ fontSize: "14px", color: "#94a3b8" }}>National Account</div>
+              <div style={{ fontSize: "36px", fontWeight: 700, color: "#6366f1" }}>CeG</div>
+              <div style={{ fontSize: "14px", color: "#94a3b8" }}>Master Trainer</div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <div style={{ fontSize: "36px", fontWeight: 700, color: "#10b981" }}>MS CIS</div>
-              <div style={{ fontSize: "14px", color: "#94a3b8" }}>Data Foundation</div>
+              <div style={{ fontSize: "36px", fontWeight: 700, color: "#10b981" }}>IIMB</div>
+              <div style={{ fontSize: "14px", color: "#94a3b8" }}>Adv. L&D PGDM</div>
             </div>
           </div>
           <div
@@ -73,7 +73,7 @@ export async function GET() {
               marginTop: "30px",
             }}
           >
-            Wholesale · E-commerce · SQL & Excel
+            Bengaluru · Accenture · JDA · Social Alpha · ER HR
           </div>
         </div>
       </div>
